@@ -25,11 +25,47 @@ $ ./fmtflow -c /opt/libebpfflow/libebpfflow-master/ebpflowexport
 ```
 
 
-### Testing
+### 使用及输出样例
 ```sh
 $ sudo ./fmtflow -h
 Usage of ./fmtflow [ OPTIONS ]:
   -c string
     	请输入ebpflowexport可执行文件的绝对路径
 Note: please run as root 
+```
+输出结果如下：
+```json
+{
+  "event_time": "1647334436.451203",
+  "ifname": "enp0s3",
+  "packet_action": "Sent",
+  "proto": "IPv4/TCP",
+  "task_info": {
+    "Pid": "3131",
+    "Tid": "3096",
+    "FullTaskPath": "/usr/local/bin/kube-proxy --config=/var/lib/kube-proxy/config.conf",
+    "Uid": "0",
+    "Gid": "0"
+  },
+  "father_task_info": {
+    "Pid": "3077",
+    "Tid": "0",
+    "FullTaskPath": "/usr/bin/containerd-shim-runc-v2-namespace",
+    "Uid": "0",
+    "Gid": "0"
+  },
+  "connect_info": {
+    "Saddr": "192.168.3.182:53438",
+    "Daddr": "192.168.3.148:6443"
+  },
+  "container_info": {
+    "container_id": "fdf3cfd11d8658e6ba93b7eb48e535c35e7b295075977d27c1d390c4",
+    "docker_name": "k8s_kube-proxy_kube-proxy-bhrbb_kube-system_6f0aa01c-75b9-48e4-86fb-3f68f50b7023_7",
+    "kube_name": "kube-proxy",
+    "pod_name": "kube-proxy-bhrbb",
+    "kube_name_space": "kube-system\n"
+  },
+  "connect_status": "CONNECT",
+  "latency": "0.29"
+}
 ```
