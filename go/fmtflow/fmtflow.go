@@ -63,6 +63,14 @@ type ContainerInfo struct {
 func main() {
 	_cmdEbpflowexport := flag.String("c", "", "请输入ebpflowexport可执行文件的绝对路径")
 	flag.Parse()
+	if *_cmdEbpflowexport == "" {
+		log.Fatalf("请输入ebpflowexport可执行文件的绝对路径")
+	} else {
+		_, err := os.Stat(*_cmdEbpflowexport)
+		if err != nil {
+			log.Fatalf("ebpflowexport可执行文件的绝对路径不存在，%s", *_cmdEbpflowexport)
+		}
+	}
 	_, err := os.Stat(*_cmdEbpflowexport)
 	if err != nil {
 		log.Fatalf("%s文件不存在", *_cmdEbpflowexport)
@@ -114,7 +122,7 @@ func getFieldToStuct(f string) (Ebpfflow, error) {
 		for i := 1; i < len(lineSplit); i++ {
 			flowSplit = append(flowSplit, lineSplit[i])
 		}
-		fmt.Printf("%s\n", line)
+		//fmt.Printf("%s\n", line)
 
 		ebpfflow.EventTime = flowSplit[0]
 		ebpfflow.Ifname = flowSplit[1]
